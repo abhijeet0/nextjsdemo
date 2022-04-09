@@ -9,7 +9,7 @@ export default function verifyToken (req: NextApiRequest){
     try {
         if (!process.env.JWT_SECRET) throw new Error("JWT_SECRET is not defined");
         let token = req.headers.authorization;
-
+        console.log('token', token);
         if (
             typeof token != "undefined" &&
             token != null

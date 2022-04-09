@@ -4,7 +4,6 @@ import Appointment from "../../../models/Appointment";
 import User from "../../../models/Users";
 import type {NextApiRequest, NextApiResponse} from "next";
 import verifyToken from "../../../lib/verifyToken";
-import { NextRequest } from 'next/server';
 
 export default async function handler (
     req: NextApiRequest,
@@ -13,7 +12,7 @@ export default async function handler (
     const {method} = req;
     await dbConnect();
     const checkForHexRegExp = /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i;
-
+    
     switch (method){
         case "GET":
             try {
