@@ -18,8 +18,8 @@ export default async function handler (
         case "GET":
             try {
                 let cond = {};
-                if (verifyToken(req)) {
-                    return "wrong token";
+                if (!verifyToken(req)) {
+                    console.log("wrong token");
                     if (typeof (req.query.id) != "undefined" && req.query.id != null) {
                         if (!checkForHexRegExp.test(req.query["id"] as string)) {
                             res.status(400).json({

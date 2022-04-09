@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
 
 
@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
  * @params {jwtToken} extracted from cookies
  * @return {object} object of extracted token
  */
-export function middleware(req: NextRequest) {
+export function verifyToken(req: NextRequest) {
     try {
         const jwtToken = req["headers"].get("authorization");
         if (!process.env.JWT_SECRET) throw new Error("JWT_SECRET is not defined");
