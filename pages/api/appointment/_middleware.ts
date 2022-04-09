@@ -1,6 +1,5 @@
-import type {NextFetchEvent, NextRequest} from "next/server";
-import {NextResponse} from "next/server";
-import jwt from "jsonwebtoken";
+// import type {NextFetchEvent, NextRequest} from "next/server";
+
 
 // export function middleware (req: NextRequest){
 //     try {
@@ -34,6 +33,6 @@ import jwt from "jsonwebtoken";
 //     }
 // }
 
-export function middleware(req: NextRequest, ev: NextFetchEvent) {
-    return new Response('Hello, world!')
+export function middleware() {
+    return new Response('Hello, world!');
   }
