@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import Appointment from "../../../models/Appointment";
 import User from "../../../models/Users";
 import type {NextApiRequest, NextApiResponse} from "next";
+import verifyToken from "../../../lib/verifyToken";
+import { NextRequest } from 'next/server';
 
 export default async function handler (
     req: NextApiRequest,
@@ -16,18 +18,19 @@ export default async function handler (
         case "GET":
             try {
                 let cond = {};
-
-                if(typeof (req.query.id) != "undefined" && req.query.id != null){
-                    if(!checkForHexRegExp.test(req.query["id"] as string)){
-                        res.status(400).json({
-                            success: false,
-                            message: "Faild to match required pattern for Appointment Id"
-                        });
-                    }else{
-                        cond = {_id: req.query.id};
+                if (verifyToken(req)) {
+                    return "wrong token";
+                    if (typeof (req.query.id) != "undefined" && req.query.id != null) {
+                        if (!checkForHexRegExp.test(req.query["id"] as string)) {
+                            res.status(400).json({
+                                success: false,
+                                message: "Faild to match required pattern for Appointment Id"
+                            });
+                        } else {
+                            cond = { _id: req.query.id };
+                        }
                     }
                 }
-                
                 const appointmentdetails = await Appointment.find(cond).populate("doctor").populate("patient");
 
                 if(appointmentdetails.length){
